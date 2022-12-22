@@ -48,11 +48,33 @@ impl DirectoryNavigator {
             }
         }
     }
-   
-    fn display_directory_structure(&self) {
-      let path = Path::new(&self.current_dir);
-     display_directory_structure(path, 0);
+    
+    use prettytable::{Table, Cell, Row};
+
+fn display_directory_structure(path: &Path) -> Table {
+    let mut table = Table::new();
+    table.add_row(Row::new(vec![Cell::new("Name"), Cell::new("Type")]));
+    for entry in fs::read_dir(path).unwrap() {
+        let entry = entry.unwrap();
+        let path = entry.path();
+        let name = path.file_name().unwrap().to_string_lossy();
+        let row = if path.is_dir() {
+            Row::new(vec![Cell::new(&name), Cell::new("Directory")])
+        } else {
+            Row::new(vec![Cell::new(&name), Cell::new("File")])
+        };
+        table.add_row(row);
     }
+    table
+}
+
+   
+   fn display_directory_structure(&self) {
+    let path = Path::new(&self.current_dir);
+    let table = display_directory_structure(path);
+    table.printstd();
+}
+
 
 }
 
