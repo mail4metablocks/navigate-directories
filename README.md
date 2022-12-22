@@ -1,4 +1,3 @@
-
 # Directory Navigator
 A Rust crate for navigating directories in a better way in the command-line interface.
 Features
