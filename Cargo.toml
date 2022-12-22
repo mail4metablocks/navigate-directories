@@ -1,7 +1,6 @@
 [package]
 name = "directory_navigator"
 version = "0.1.0"
-authors = ["Your Name <your@email.com>"]
 description = "A better way to navigate directories in the command-line interface."
 license = "MIT"
 
